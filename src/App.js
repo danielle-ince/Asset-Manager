@@ -1,25 +1,27 @@
-import logo from './logo.svg';
+import React from "react";
+import { observer } from "mobx-react";
+import { values } from "mobx";
+import { AssetView, AssetCounterView } from './models/Asset';
+import AssetComponent from './components/Asset';
+
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+export const AppView = observer(props => (
+  <div className="AssetManager__container">
+    <div className="AssetManager__header">
 
-export default App;
+    </div>
+    <div className="AssetManager__assets">
+      <div>
+        {values(props.store.assets)
+          .filter(asset => {
+            return asset.getParent === undefined || asset.getParent.expanded
+          })
+          .map(asset => (
+            <AssetComponent key={asset.id} asset={asset} />
+        ))}
+        <AssetCounterView store={props.store} />
+      </div>
+    </div>
+  </div>
+));

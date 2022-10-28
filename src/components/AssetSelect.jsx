@@ -9,10 +9,8 @@ export default function AssetIcon(props) {
     switch(state) {
       case 'SELECTED':
         return(<CheckBoxIcon fontSize="small" />);
-        break;
       case 'INDETERMINATE':
         return(<IndeterminateCheckBoxIcon fontSize="small" />);
-        break;
       default:
         return (<CheckBoxOutlineBlankIcon fontSize="small" />);
     }

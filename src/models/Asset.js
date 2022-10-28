@@ -1,10 +1,5 @@
 import { types } from "mobx-state-tree";
 import { observer } from "mobx-react";
-import AssetComponent from '../components/Asset';
-
-import AssetSelect from '../components/AssetSelect';
-import AssetIcon from '../components/AssetIcon';
-import DragIndicatorIcon from '@mui/icons-material/DragIndicator';
 
 export const Asset = types
   .model({
@@ -21,9 +16,6 @@ export const Asset = types
   .views(self => ({
     get getName() {
       return self.name
-    },
-    get getSelected() {
-      return self.selected.SELECTED
     },
     get getKind() {
       return self.kind
@@ -118,28 +110,9 @@ export const Asset = types
     return { setParent, addChild, toggleSelected, setSelected, parentOverride, updateChildSelected, setSelectedFromChildren, toggleExpanded, handleRecursiveExpanded };
   });
 
-
-export const AssetView = observer((props) => {
-  return (
-    <div className={`Asset Asset__container ${!props.asset.parent || props.asset.parent.expanded ? '' : 'hidden'} `}>
-      <div className="Asset__move">
-        <DragIndicatorIcon sx={{ color: '#e5e5e5' }} />
-      </div>
-      <div className="Asset__content-wrap" style={{ marginLeft: props.asset.level * 20 }}>
-        <button type="button" className="Asset__select">
-          <AssetSelect state="" />
-        </button>
-        <AssetIcon type={props.asset.kind} expandState={props.asset.expanded} />
-        <div className="Asset__name" onClick={() => props.asset.toggleExpanded()}>
-          {props.asset.name}.{props.asset.type}
-        </div>
-      </div>
-    </div>
-  )});
-
 export const AssetCounterView = observer(props => (
   <div>
-      {props.store.pendingCount} pending, {props.store.completedCount} completed
+      {props.store.selectedCount} selected, {props.store.count} total
   </div>
 ))
 

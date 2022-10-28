@@ -7,11 +7,11 @@ export const RootStore = types
   assets: types.map(Asset),
 })
 .views(self => ({
-  get pendingCount() {
-    return values(self.assets).filter(todo => !todo.done).length
+  get selectedCount() {
+    return values(self.assets).filter(asset => asset.getSelected === 'SELECTED').length
   },
-  get completedCount() {
-    return values(self.assets).filter(todo => todo.done).length
+  get count() {
+    return values(self.assets).length
   },
   getAsset(id) {
     return values(self.assets).filter(asset => asset.id === id);
